@@ -1,6 +1,6 @@
 ## Description of scripts
 
-This is a set of scripts that was used to process sequences derived from environmental DNA extracted from flowers and bulk mixed samples of arthopods taken from blue and yellow vane traps. These scripts are published to help improve reproducibility. Raw sequence files are available as part of NCBI GenBank Project [PRJNA1189042](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1189042). The reference sequence databases used can be found in a [Zenodo repository](https://doi.org/10.5281/zenodo.14267554).
+These scripts were used to process sequences derived from environmental DNA extracted from flowers and bulk mixed samples of arthopods taken from blue and yellow vane traps. Raw sequence files that were used with these scripts are available as part of NCBI GenBank Project [PRJNA1189042](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1189042). The reference sequence databases used can be found in a [Zenodo repository](https://doi.org/10.5281/zenodo.14267554).
 
 - `01_fastq_processing.sh` Executable (bash) shell script that renames fastq files, removes primers and small fragments using [Cutadapt](https://cutadapt.readthedocs.io/en/v3.5/index.html), and generates read statistics using [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/), [MultiQC](https://github.com/MultiQC/MultiQC), and [Seqkit](https://bioinf.shenwei.me/seqkit/).
 - `02_dada2_denoising.R` R script using [dada2](https://benjjneb.github.io/dada2/) to denoise trimmed reads and remove chimeras. The resulting merged amplicon sequence variants (ASVs) are filtered using [decontam](https://github.com/benjjneb/decontam) to remove contaminants found in blanks and size selected for amplicon length.
@@ -8,7 +8,28 @@ This is a set of scripts that was used to process sequences derived from environ
 - `04_ASV_curation_LULU.R` R script for curating ASVs using [LULU](https://github.com/tobiasgf/lulu) at four minimum match values and creation of [Phyloseq](https://joey711.github.io/phyloseq/) object with final data.
 - `05_pollinator_analyses.R` Final processing and analysis of data.
 
-### Disclaimers
+## Description of data
+
+`pollinators_bilsoda22.RData` is the final RData object created after running all of the above scripts. It contains the three Phyloseq objects (one for each marker: 16S, COI, and Bombus) combined into a single Phyloseq object named `ps_combined`. It includes an OTU table with read abundance, sample data table (i.e., metadata; see below for details), taxonomy table with taxonomic assignments, and DNAStringSet containing the sequences for each ASV. The ASV names have a prefix and underscore added to differentiate which marker they come from (e.g., COI_ASV1).
+
+**Variables found in the Sample Data**
+| Variable | Description |
+| --- | --- |
+| ASV	| Unique identifier for amplicon sequence variant (ASV); prefix before underscore indicates marker used to detect the ASV |
+| sample | Unique sample name |
+| sample_type2	| Sample type: flowers (for eDNA from flowers), yellow or blue vane trap (for ground arthropods from vane traps) |
+| date	| Date sample was collected |
+| plot_ID	| Unique name for plot where sample was collected |
+| temp	| Temperature in degrees Celsius on day sample was collected |
+| wind	| Approximate wind speed on day sample was collected |
+| sky	| Approximate cloud cover on day sample was collected |
+| rain	| Whether it was raining on day sample was collected |
+| flower	| Species of flower sample (or genus if flower could not be identified to species) |
+| flower_confidence	| Level of confidence sample collector had in flower species identification |
+| blank	| If TRUE, ASV is from a blank (i.e., no template control) |
+
+
+## Disclaimers
 
 This software is preliminary or provisional and is subject to revision. It is
 being provided to meet the need for timely best science. The software has not
