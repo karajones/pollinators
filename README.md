@@ -1,7 +1,7 @@
 ## A methodological comparison of eDNA derived from flowers and DNA derived from bulk samples of insects
 
 > [!NOTE]
-> This manuscript has been accepted for publication in *Molecular Ecology*. I will update with a link once it's been published. The scripts and data provided in this repository are intended to supplement the bioinformatics methods section.
+> This manuscript has been accepted for publication in [*Molecular Ecology*](https://doi.org/10.1111/mec.70003). The scripts and data provided in this repository are intended to supplement the bioinformatics methods section.
 
 ## About the study
 
